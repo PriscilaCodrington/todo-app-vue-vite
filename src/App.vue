@@ -6,7 +6,6 @@ export default {
       task: "",
       editedTaskIndex: null,
       statuses: ["to-do", "in-progress", "finished"],
-      /* Status could be: 'to-do' / 'in-progress' / 'finished' */
       tasks: [
         {
           name: "Create a todo app",
@@ -23,58 +22,26 @@ export default {
       ],
     };
   },
-  computed: {},
-  methods: {
-    /**
-     * Capitalize first character
-     */
-    capitalizeFirstChar(str) {
-      return str.charAt(0).toUpperCase() + str.slice(1);
+  computed: {
+    shouldShowCongratulations() {
+      // write your code here
     },
-    /**
-     * Change status of task by index
-     */
+  },
+  methods: {
     changeStatus(task) {
-      // task.status = this.statuses[(this.statuses.indexOf(task.status)+1) % this.statuses.length]
-      if (task.status === this.statuses[0]) task.status = this.statuses[1]
-      else if (task.status === this.statuses[1]) task.status = this.statuses[2]
-      else task.status = this.statuses[0]
+      // write your code here
     },
     getStatusClass(task) {
-      if (task.status === 'to-do') return 'text-danger'
-      else if (task.status === 'finished') return 'text-success'
-      else return 'text-warning'
+      // write your code here
     },
-    /**
-     * Deletes task by index
-     */
     deleteTask(index) {
-      this.tasks.splice(index, 1);
+      // write your code here
     },
-    /**
-     * Edit task
-     */
     editTask(index) {
-      this.task = this.tasks[index].name;
-      this.editedTaskIndex = index;
+      // write your code here
     },
-    /**
-     * Add / Update task
-     */
     submitTask() {
-      if (this.task.length === 0) return;
-      /* We need to update the task */
-      if (this.editedTaskIndex != null) {
-        this.tasks[this.editedTaskIndex].name = this.task;
-        this.editedTaskIndex = null;
-      } else {
-        /* We need to add new task */
-        this.tasks.push({
-          name: this.task,
-          status: "to-do",
-        });
-      }
-      this.task = "";
+      // write your code here
     },
   },
 };
@@ -118,7 +85,7 @@ export default {
             <span
                 class="pointer"
             >
-              --task status--
+              -- task status --
             </span>
         </td>
         <td class="text-center">
