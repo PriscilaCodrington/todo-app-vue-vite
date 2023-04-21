@@ -24,24 +24,42 @@ export default {
   },
   computed: {
     shouldShowCongratulations() {
-      // write your code here
+      return this.tasks.every(task => task.status === 'finished')
     },
   },
   methods: {
     changeStatus(task) {
-      // write your code here
+      // task.status = this.statuses[(this.statuses.indexOf(task.status)+1) % this.statuses.length]
+      if (task.status === this.statuses[0]) task.status = this.statuses[1]
+      else if (task.status === this.statuses[1]) task.status = this.statuses[2]
+      else task.status = this.statuses[0]
     },
     getStatusClass(task) {
-      // write your code here
+      if (task.status === 'to-do') return 'text-danger'
+      else if (task.status === 'finished') return 'text-success'
+      else return 'text-warning'
     },
     deleteTask(index) {
-      // write your code here
+      this.tasks.splice(index, 1);
     },
     editTask(index) {
-      // write your code here
+      this.task = this.tasks[index].name;
+      this.editedTaskIndex = index;
     },
     submitTask() {
-      // write your code here
+      if (this.task.length === 0) return;
+      /* We need to update the task */
+      if (this.editedTaskIndex != null) {
+        this.tasks[this.editedTaskIndex].name = this.task;
+        this.editedTaskIndex = null;
+      } else {
+        /* We need to add new task */
+        this.tasks.push({
+          name: this.task,
+          status: "to-do",
+        });
+      }
+      this.task = "";
     },
   },
 };
@@ -56,10 +74,11 @@ export default {
     <div class="d-flex mt-5">
       <input
           type="text"
+          v-model="task"
           placeholder="Enter task"
           class="w-100 form-control"
       />
-      <button class="btn btn-warning rounded-0">
+      <button class="btn btn-warning rounded-0" @click="submitTask">
         SUBMIT
       </button>
     </div>
@@ -75,33 +94,35 @@ export default {
       </tr>
       </thead>
       <tbody>
-      <tr>
+      <tr v-for="(task, index) in tasks" :key="index">
         <td>
-            <span class="">
-              --- task name ---
+            <span :class="`${task.status === 'finished' ? 'line-through' : ''}`">
+              {{ task.name }}
             </span>
         </td>
         <td>
             <span
                 class="pointer"
+                @click="changeStatus(task)"
+                :class="getStatusClass(task)"
             >
-              -- task status --
+              {{ task.status }}
             </span>
         </td>
         <td class="text-center">
-          <div>
+          <div @click="deleteTask(index)">
             <span class="fa fa-trash pointer"/>
           </div>
         </td>
         <td class="text-center">
-          <div>
+          <div @click="editTask(index)">
             <span class="fa fa-pen pointer"/>
           </div>
         </td>
       </tr>
       </tbody>
     </table>
-    <div>
+    <div v-if="shouldShowCongratulations">
       Congratulations! You completed all your tasks!
     </div>
   </div>
