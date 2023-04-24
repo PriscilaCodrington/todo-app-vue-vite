@@ -2,51 +2,67 @@
 
 ![overwhelmed](https://i.gifer.com/3M3.gif)
 
-Hello dears! nowadays we have s stressful life. So to manage this and learn Vue, we gonna do a TODO App. You can't call yourself developer if you didn't a TO-DO App.
+Hello coders! Nowadays we have a stressful life. So to manage this and learn Vue, we are going create a TODO App. You can't call yourself developer if you haven't developed a TO-DO App.
+The final result should look like this:
 
-## Step 1: Template
+![todo-app-demo](https://user-images.githubusercontent.com/84244900/234034451-1aee3f7c-0c29-446d-a429-ebb61269cbfa.gif)
 
-Clone this repo, it helps you to have the basic scaffoling. Write this in repo in wich you wish have it:
+## Step 1: Clone the project, install it and launch it!
+
+Fork & clone this repo, it will help you with the basic scaffolding. Using the terminal, navigate to the folder on your machine where you usually keep your repos and type this.
 
 ```
 git clone https://github.com/SybilVane/todo-app-vue-vite.git
 
 cd todo-app-vue-vite
 
+npm install
+
 code .
+
 ```
+To launch the app and see what is already done, you can go back to the terminal (or open a new terminal inside VS code) and type this.
 
-## Step 2: Manage entry data
+```
+npm run dev
+```
+If you did everything right you will be able to see the basic template that we'll need to modify in order to make it work.
 
-If you want, at least, write the title of your task, you have to do a way to manage the entry data and store ir in our TODO App.
+![starter-app](https://user-images.githubusercontent.com/84244900/234041099-994c0c5d-146e-4c31-913a-8e373a06a9bd.png)
 
-In this point you have to build a form. But Vue have an easier way to do this. We use v-form to link our input element in template with our state "task" in the script.
+Now open the file App.vue and let's get down to business!
 
-To know more about v-model, check [Form Input bindings in Vue's documentation](https://vuejs.org/guide/essentials/forms.html).
+## Step 2: Show data on the table
 
-Once you have this link (easy pisy), you have to write a method to move this info from "task" to our array of "tasks". Maybe, [you'd can use an array build-in method](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array) to do this easily.
-
-## Step 3: Show our data
-
-Save our task it's useless if we don't have a way to check this. An easy way to it's using v-for binding. V-for allows us render an item for each element we choose. [More info here](https://vuejs.org/api/built-in-directives.html#v-for).
-
+The first thing we need to do in order to visualize data on our table is by using the directive `v-for`, and we can start off rendering the default data we already have in `tasks`. 
+As it is an array, and we want to iterate over it and show a row for each item, let's add v-for to the `<tr>` contained in the `<tbody>`
 ```
 <tr v-for="(task, index) in tasks" :key="index">
 ```
+Once you do this, you will be able to replace the placeholders --- task name --- and -- task status -- with the real data.
+For this remember we use the `{{  }}`.
 
-Try to do this with our list of tasks.
+## Step 3: Add new tasks 
 
-## Step 4: Edid and delete our tasks
+Now that we have some tasks ready, we want to add new tasks to our table. For this we'll need to update the tasks array.
+We will use the directive `v-model` to bind the input to the `task` contained in `data()` so that it gets updated every time you type something in it.
+Next we'll need to add to the button on the side of the input the directive`@click` which will need to trigger the method `submitTask`.
 
-Life is change. And our task gonna do so. It's useful use index of selected item to access to this properties out of the template.
+This method will need to do several things:
+- Check tasks are added only if task length is not 0 (no empty tasks in out list)
+- Add the new task to the tasks array. By default, its status will be 'to-do', everytime we create a new task.
+- Set the task back to an empty string after the new task is added (to clean up our input)
 
-![Todo](./assets/todo.png)
+## Step 4: Delete our tasks
+Next step, we'll need to delete our tasks. For that we'll need to bind the div that contains the trash icon to the method `deleteTask(index)`.
+This method will need to delete the task that we want. Remember how to use `splice` ?
 
-Don't forget use different method to do this!
+## Step 5: TBD Edit our tasks
+...
 
-## Extra: This gonna make your life easier
+## Extra: This is going to make your life easier
 
-If you haven't installed Vue Developer Tools in your browser, install it inmediately:
+If you haven't installed Vue Developer Tools in your browser, install it immediately:
 
 - [For Chrome](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
 - [For Firefox](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
