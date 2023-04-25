@@ -55,10 +55,14 @@ This method will need to do several things:
 
 ## Step 4: Delete our tasks
 Next step, we'll need to delete our tasks. For that we'll need to bind the div that contains the trash icon to the method `deleteTask(index)`.
-This method will need to delete the task that we want. Remember how to use `splice` ?
+This method will need to delete the task that we want. Remember how to use `.splice` ?
 
-## Step 5: TBD Edit our tasks
-...
+## Step 5: Hide / Show the congratulations message
+If you look at your table, you'll see that there's a congratulation message, always visible. We need to see that only in case all our tasks have "finished" as a status.
+For this we will need to use the directive `v-if` in the div which contains the message, and bind it to the method `shouldShowCongratulations()`.
+In the method you should check that the status of all the items is "finished". For this purpose, you can use the array method `.every`.
+
+
 
 ## Extra: This is going to make your life easier
 
