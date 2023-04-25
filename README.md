@@ -62,7 +62,24 @@ If you look at your table, you'll see that there's a congratulation message, alw
 For this we will need to use the directive `v-if` in the div which contains the message, and bind it to the method `shouldShowCongratulations()`.
 In the method you should check that the status of all the items is "finished". For this purpose, you can use the array method `.every`.
 
+## Step 6: Add class line-through for finished tasks
+Now let's add some logic to the class of the span that contains the **task name**, so that the class will be "intelligent" and add line-through to **the name** of the task if its status is "finished".
+For this you can bind the class to a condition to evaluate the **task status**: if it is "finished" then the `:class` will be `.line-thorugh` (already present in the `<style></style>` at the end of your App).
+If it is not, the class will not be applied. Don't get confused! The name of the task should appear ~~like this~~ NOT the status (we only use the status to understand if our task name will be crossed out or not). 
 
+## Step 7: Add a class to task status text dynamically
+It's now time to give some styling to the status text too! Find the span which contains the task status, and bind the `:class` to the method `getStatusClass(task)` so the class is dynamic.
+This method will need to evaluate the task status and return the right class, accordingly (don't forget that a class is just a string in the end).
+
+- If the task status is "finished", return the class 'text-success' (you don't need to create these classes, they are already present in bootstrap library that's installed in the project)
+- If the task status is "in progress", return the class 'text-warning'
+- If the task status is "to-do", the class 'text-danger'
+
+## Step 8: Update task status when clicking on it
+We want to change our tasks' status from "to-do" to "in progress" to "finished".
+We need to use the directive `@click` in the same span as before, the one containing the task status. We want to bind the directive to the method `changeStatus(task)`.
+This method will need to change the status of the selected task every time you click on it in a "circular way". There are several ways to do that, some of them easier but more "wordy",
+some others smarter, but more difficult to understand. You can use the array called `statuses` that you have in the `data()` to iterate over, and see if it's useful in any way.
 
 ## Extra: This is going to make your life easier
 
